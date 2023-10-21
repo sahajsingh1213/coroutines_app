@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">coroutines_app</string>
+    <string name="counter_view">0</string>
+    <string name="start">0</string>
+</resources>
