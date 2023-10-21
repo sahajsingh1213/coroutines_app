@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         }
        var t = 0
-       var job =  CoroutineScope(Dispatchers.IO).launch {
+
             newb.setOnClickListener {
                 t += 1
                 specify.text = "$t"
@@ -48,15 +48,15 @@ class MainActivity : AppCompatActivity() {
                     execute()
                 }
 
-            }
+
 
         }
-        CoroutineScope(Dispatchers.Default).launch {  job.join()}
+
 
     }
 
    suspend fun execute(){
-       var job =  CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).launch {
            for (i in 1..1000000000000) {
                //if (i == 1000000000000) {
                bigno.text = "${i}"
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
            }
        }
-       job.join()
+
    }
 
 }
