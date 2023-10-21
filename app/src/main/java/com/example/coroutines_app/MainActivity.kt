@@ -39,34 +39,34 @@ class MainActivity : AppCompatActivity() {
 
         }
        var t = 0
-       var job =  CoroutineScope(Dispatchers.IO).launch {
+
             newb.setOnClickListener {
                 t += 1
                 specify.text = "$t"
 
-                CoroutineScope(Dispatchers.IO).launch {
+
                     execute()
-                }
+
 
             }
 
         }
-        CoroutineScope(Dispatchers.Default).launch {  job.join()}
 
-    }
 
-   suspend fun execute(){
-       var job =  CoroutineScope(Dispatchers.IO).launch {
+    fun execute(){
+
            for (i in 1..1000000000000) {
                //if (i == 1000000000000) {
                bigno.text = "${i}"
 
 
            }
-       }
-       job.join()
-   }
 
-}
+
+   }
+    }
+
+
+
 
 
