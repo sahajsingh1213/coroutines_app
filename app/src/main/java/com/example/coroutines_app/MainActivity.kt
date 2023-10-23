@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         }
        var t = 0
 
-            newb.setOnClickListener {
+        newb.setOnClickListener {
                 t += 1
                 specify.text = "$t"
 
