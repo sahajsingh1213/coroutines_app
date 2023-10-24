@@ -21,52 +21,44 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
-    lateinit var currentcont: TextView
-    lateinit var bigno: TextView
+//    lateinit var currentcont: TextView
+//    lateinit var bigno: TextView
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        currentcont = findViewById<TextView>(R.id.update_counter)
-        var button = findViewById<Button>(R.id.update_button)
-        var newb = findViewById<Button>(R.id.action)
-        bigno = findViewById<TextView>(R.id.blocking_count)
-        var specify = findViewById<TextView>(R.id.sp)
 
-        button.setOnClickListener{
-            currentcont.text = "${currentcont.text.toString().toInt()+1}"
+       var job = CoroutineScope(Dispatchers.IO).launch {
+           Log.d("myTag","starting of long running task")
 
-        }
-       var t = 0
+          for(i in 30..40){
+           if(isActive) {
+               Log.d("myTag", "fib($i) = ${fibonacci(i)}")
+           }
+          }
 
-            newb.setOnClickListener {
-                t += 1
-                specify.text = "$t"
+           Log.d("myTag","ending of long running task")
+       }
 
-                CoroutineScope(Dispatchers.IO).launch {
-                    execute()
-                }
+        runBlocking {
+            delay(500)
+            job.cancel()
 
 
-
+            Log.d("myTag","runBlocking block")
         }
 
 
     }
+        fun fibonacci(n:Int):Long{
+         return if(n==0)  0
+         else if(n ==1 )  1
+         else  fibonacci(n-1) + fibonacci(n-2)
+        }
 
-   suspend fun execute(){
-        CoroutineScope(Dispatchers.IO).launch {
-           for (i in 1..1000000000000) {
-               //if (i == 1000000000000) {
-               bigno.text = "${i}"
-
-
-           }
        }
 
-   }
 
-}
 
 
