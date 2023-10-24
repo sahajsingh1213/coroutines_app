@@ -19,6 +19,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
 
 class MainActivity : AppCompatActivity() {
 //    lateinit var currentcont: TextView
@@ -31,23 +32,17 @@ class MainActivity : AppCompatActivity() {
 
        var job = CoroutineScope(Dispatchers.IO).launch {
            Log.d("myTag","starting of long running task")
-
-          for(i in 30..40){
-           if(isActive) {
-               Log.d("myTag", "fib($i) = ${fibonacci(i)}")
-           }
+         withTimeout(500) {
+             for (i in 30..40) {
+          if(isActive) {
+              Log.d("myTag", "fib($i) = ${fibonacci(i)}")
           }
+             }
+         }
 
            Log.d("myTag","ending of long running task")
        }
 
-        runBlocking {
-            delay(500)
-            job.cancel()
-
-
-            Log.d("myTag","runBlocking block")
-        }
 
 
     }
